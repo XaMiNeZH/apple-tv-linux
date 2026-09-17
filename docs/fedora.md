@@ -26,8 +26,8 @@ Download the latest **AppImage** or **.tar.gz** from
 [Releases](https://github.com/XaMiNeZH/apple-tv-linux/releases).
 
 ```bash
-chmod +x tvweb-*-x64.AppImage
-./tvweb-*-x64.AppImage
+chmod +x tvweb-*-x86_64.AppImage
+./tvweb-*-x86_64.AppImage
 ```
 
 ### From source

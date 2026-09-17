@@ -27,8 +27,8 @@ Windows or macOS apps.
 Download a Linux build from [Releases](https://github.com/XaMiNeZH/apple-tv-linux/releases):
 
 ```bash
-chmod +x tvweb-0.2.0-x64.AppImage
-./tvweb-0.2.0-x64.AppImage
+chmod +x tvweb-0.2.0-x86_64.AppImage
+./tvweb-0.2.0-x86_64.AppImage
 ```
 
 Or build from source (needs **Node.js 20+**). Chrome or Edge on the machine still helps protected playback (Widevine).
