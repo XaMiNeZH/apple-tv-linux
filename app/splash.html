@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TV Web</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #0b1526;
+        color: #f6f5f4;
+        font-family: Cantarell, "Noto Sans", sans-serif;
+      }
+      .wrap {
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 1.25rem;
+      }
+      .mark {
+        width: 88px;
+        height: 88px;
+      }
+      h1 {
+        margin: 0;
+        font-size: 1.6rem;
+        font-weight: 700;
+      }
+      p {
+        margin: 0;
+        color: #99c1f1;
+      }
+      .spin {
+        width: 28px;
+        height: 28px;
+        border: 3px solid #1c2d4a;
+        border-top-color: #3584e4;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <svg class="mark" viewBox="0 0 128 128" aria-hidden="true">
+        <rect width="128" height="128" rx="28" fill="#1c2d4a" />
+        <rect x="18" y="24" width="92" height="64" rx="12" fill="#3584e4" />
+        <rect x="24" y="30" width="80" height="52" rx="8" fill="#0b1526" />
+        <polygon points="52,42 52,70 78,56" fill="#f6f5f4" />
+        <rect x="48" y="92" width="32" height="6" rx="3" fill="#3584e4" />
+        <rect x="36" y="102" width="56" height="8" rx="4" fill="#99c1f1" />
+      </svg>
+      <h1>TV Web</h1>
+      <p>Opening Apple TV</p>
+      <div class="spin" aria-hidden="true"></div>
+    </div>
+  </body>
+</html>

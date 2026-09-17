@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TV Web</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #0b1526;
+        color: #f6f5f4;
+        font-family: Cantarell, "Noto Sans", sans-serif;
+      }
+      .wrap {
+        min-height: 100%;
+        box-sizing: border-box;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem;
+        text-align: center;
+      }
+      h1 {
+        margin: 0;
+        font-size: 1.5rem;
+      }
+      p {
+        margin: 0;
+        max-width: 36rem;
+        line-height: 1.45;
+        color: #c0bfbc;
+      }
+      button {
+        margin-top: 0.75rem;
+        background: #3584e4;
+        color: white;
+        border: 0;
+        border-radius: 8px;
+        padding: 0.55rem 1.1rem;
+        font: inherit;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Could not open Apple TV</h1>
+      <p id="detail">
+        Check your network, then try again. TV Web needs a connection to
+        tv.apple.com.
+      </p>
+      <button id="retry" type="button">Try again</button>
+    </div>
+    <script>
+      const params = new URLSearchParams(location.search);
+      const detail = params.get("detail");
+      if (detail) {
+        document.getElementById("detail").textContent = detail;
+      }
+      document.getElementById("retry").addEventListener("click", () => {
+        location.replace("https://tv.apple.com");
+      });
+    </script>
+  </body>
+</html>
