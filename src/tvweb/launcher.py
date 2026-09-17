@@ -21,6 +21,20 @@ def build_command(
     profile: Path,
     hardware_decode: bool = False,
 ) -> list[str]:
+    if browser.kind == "firefox":
+        ensure_profile_dir(profile)
+        return [
+            browser.path,
+            "--profile",
+            str(profile),
+            "--new-instance",
+            "--name",
+            WINDOW_CLASS,
+            "--class",
+            WINDOW_CLASS,
+            APPLE_TV_URL,
+        ]
+
     ensure_profile_dir(profile)
     return [
         browser.path,
