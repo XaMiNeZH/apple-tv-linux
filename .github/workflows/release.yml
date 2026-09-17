@@ -40,15 +40,116 @@ jobs:
         id: version
         run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
       - name: Publish GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          tag_name: v${{ steps.version.outputs.version }}
-          name: TV Web ${{ steps.version.outputs.version }}
-          generate_release_notes: true
-          make_latest: true
-          files: |
-            dist/*.AppImage
-            dist/*.tar.gz
-          fail_on_unmatched_files: false
+        uses: actions/github-script@v8
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          RELEASE_TAG: v${{ steps.version.outputs.version }}
+          RELEASE_NAME: TV Web ${{ steps.version.outputs.version }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const tag = process.env.RELEASE_TAG;
+            const name = process.env.RELEASE_NAME;
+
+            let release;
+            try {
+              const response = await github.rest.repos.getReleaseByTag({ owner, repo, tag });
+              release = response.data;
+            } catch (error) {
+              if (error.status !== 404) throw error;
+            }
+
+            if (release && !release.draft) {
+              core.info(`${tag} is already published at ${release.html_url}`);
+              return;
+            }
+
+            if (!release) {
+              const releases = await github.paginate(github.rest.repos.listReleases, {
+                owner,
+                repo,
+                per_page: 100,
+              });
+              release = releases.find((candidate) => candidate.tag_name === tag);
+            }
+
+            try {
+              await github.rest.git.getRef({ owner, repo, ref: `tags/${tag}` });
+            } catch (error) {
+              if (error.status !== 404) throw error;
+              await github.rest.git.createRef({
+                owner,
+                repo,
+                ref: `refs/tags/${tag}`,
+                sha: context.sha,
+              });
+            }
+
+            if (!release) {
+              const response = await github.rest.repos.createRelease({
+                owner,
+                repo,
+                tag_name: tag,
+                target_commitish: context.sha,
+                name,
+                draft: true,
+                prerelease: false,
+                generate_release_notes: true,
+              });
+              release = response.data;
+            }
+
+            const artifactNames = fs.readdirSync('dist').filter(
+              (artifactName) => artifactName.endsWith('.AppImage') || artifactName.endsWith('.tar.gz'),
+            );
+            if (artifactNames.length === 0) {
+              throw new Error('No AppImage or tar.gz artifacts were built');
+            }
+
+            const existingAssets = await github.paginate(github.rest.repos.listReleaseAssets, {
+              owner,
+              repo,
+              release_id: release.id,
+              per_page: 100,
+            });
+
+            for (const artifactName of artifactNames) {
+              const duplicate = existingAssets.find((asset) => asset.name === artifactName);
+              if (duplicate) {
+                await github.rest.repos.deleteReleaseAsset({
+                  owner,
+                  repo,
+                  asset_id: duplicate.id,
+                });
+              }
+
+              const artifactPath = path.join('dist', artifactName);
+              const data = fs.readFileSync(artifactPath);
+              await github.rest.repos.uploadReleaseAsset({
+                owner,
+                repo,
+                release_id: release.id,
+                name: artifactName,
+                headers: {
+                  'content-type': 'application/octet-stream',
+                  'content-length': data.length,
+                },
+                data,
+              });
+            }
+
+            const published = await github.rest.repos.updateRelease({
+              owner,
+              repo,
+              release_id: release.id,
+              tag_name: tag,
+              target_commitish: context.sha,
+              name,
+              draft: false,
+              prerelease: false,
+              make_latest: 'true',
+            });
+            core.info(`Published ${published.data.html_url}`);
