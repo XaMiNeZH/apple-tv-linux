@@ -8,3 +8,8 @@ license = "MIT"
 
 [project.scripts]
 tvweb = "tvweb.main:main"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-q"
