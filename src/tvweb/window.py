@@ -41,7 +41,8 @@ class PreferencesWindow(Adw.ApplicationWindow):
         toast.set_child(toolbar)
         self.set_content(toast)
         self._toasts = toast
- mar        about = Gio.SimpleAction.new("about", None)
+
+        about = Gio.SimpleAction.new("about", None)
         about.connect("activate", self._on_about)
         self.add_action(about)
         header.pack_end(
