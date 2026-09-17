@@ -3,17 +3,19 @@
 from __future__ import annotations
 
 import argparse
+import os
 import sys
 
 from tvweb.browsers import detect_browsers, pick_browser
 from tvweb.config import load_config, profile_dir
+from tvweb.electronapp import electron_app_dir, electron_cli
 from tvweb.launcher import launch
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         prog="tvweb",
-        description="Unofficial GNOME wrapper for tv.apple.com",
+        description="Unofficial GNOME desktop app for tv.apple.com",
     )
     parser.add_argument(
         "--preferences",
@@ -44,8 +46,26 @@ def _print_missing_gtk() -> None:
     )
 
 
+def _launch_electron() -> int | None:
+    electron = electron_cli()
+    if electron is None:
+        return None
+    app_dir = electron_app_dir()
+    argv = [str(electron)]
+    if electron.name == "electron":
+        if not (app_dir / "app" / "main.mjs").is_file():
+            return None
+        argv.append(str(app_dir))
+    os.execv(str(electron), argv)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
+    if not args.preferences:
+        launched = _launch_electron()
+        if launched is not None:
+            return launched
     config = load_config()
     browsers = detect_browsers()
 
