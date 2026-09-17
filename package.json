@@ -1,0 +1,47 @@
+{
+  "name": "tvweb",
+  "productName": "TV Web",
+  "version": "0.2.0",
+  "description": "Unofficial Fedora GNOME desktop app for tv.apple.com",
+  "private": true,
+  "type": "module",
+  "main": "app/main.mjs",
+  "scripts": {
+    "start": "electron .",
+    "pack": "electron-builder --linux dir"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "author": "Ahmed Amine EZ-ZAHERY",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^33.4.11",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "xyz.xaminezh.TvWeb",
+    "productName": "TV Web",
+    "copyright": "MIT",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "app/**/*",
+      "data/icons/hicolor/scalable/apps/xyz.xaminezh.TvWeb.svg",
+      "package.json"
+    ],
+    "linux": {
+      "target": ["dir"],
+      "category": "AudioVideo",
+      "executableName": "tvweb",
+      "artifactName": "tvweb-${version}-${arch}",
+      "desktop": {
+        "Name": "TV Web",
+        "Comment": "Unofficial desktop app for tv.apple.com",
+        "Categories": "AudioVideo;Video;TV;Player;",
+        "StartupWMClass": "xyz.xaminezh.TvWeb"
+      }
+    }
+  }
+}
