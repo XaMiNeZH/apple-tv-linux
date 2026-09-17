@@ -8,7 +8,8 @@
   "main": "app/main.mjs",
   "scripts": {
     "start": "electron .",
-    "pack": "electron-builder --linux dir"
+    "pack": "electron-builder --linux dir",
+    "dist": "electron-builder --linux AppImage tar.gz"
   },
   "engines": {
     "node": ">=20"
@@ -32,10 +33,11 @@
       "package.json"
     ],
     "linux": {
-      "target": ["dir"],
+      "target": ["AppImage", "tar.gz"],
       "category": "AudioVideo",
       "executableName": "tvweb",
-      "artifactName": "tvweb-${version}-${arch}",
+      "artifactName": "tvweb-${version}-${arch}.${ext}",
+      "icon": "data/icons/hicolor/scalable/apps/xyz.xaminezh.TvWeb.svg",
       "desktop": {
         "Name": "TV Web",
         "Comment": "Unofficial desktop app for tv.apple.com",
