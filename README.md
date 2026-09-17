@@ -36,6 +36,8 @@ Playback is the **Linux web player**, the same as Chrome or Firefox:
 
 ## Install on Fedora
 
+See [docs/fedora.md](docs/fedora.md).
+
 ```bash
 sudo dnf install python3-gobject gtk4 libadwaita meson ninja-build firefox
 meson setup build --prefix="$HOME/.local"
@@ -55,6 +57,12 @@ Run from a git checkout without installing:
 
 ```bash
 PYTHONPATH=src python3 -m tvweb --preferences
+```
+
+## Tests
+
+```bash
+python3 -m pytest
 ```
 
 ## License
