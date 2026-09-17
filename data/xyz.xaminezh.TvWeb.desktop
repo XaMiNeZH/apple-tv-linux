@@ -1,0 +1,17 @@
+[Desktop Entry]
+Type=Application
+Name=TV Web
+GenericName=Apple TV website
+Comment=Unofficial desktop wrapper for tv.apple.com
+Exec=tvweb
+Icon=xyz.xaminezh.TvWeb
+Terminal=false
+Categories=AudioVideo;Video;TV;Player;
+Keywords=Apple;TV;streaming;tv.apple.com;
+StartupWMClass=xyz.xaminezh.TvWeb
+DBusActivatable=false
+Actions=preferences;
+
+[Desktop Action preferences]
+Name=Preferences
+Exec=tvweb --preferences

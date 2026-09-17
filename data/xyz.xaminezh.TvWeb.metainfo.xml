@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>xyz.xaminezh.TvWeb</id>
+  <name>TV Web</name>
+  <summary>Unofficial desktop wrapper for tv.apple.com</summary>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT</project_license>
+  <developer id="xyz.xaminezh">
+    <name>Ahmed Amine EZ-ZAHERY</name>
+  </developer>
+  <description>
+    <p>
+      TV Web opens the official Apple TV website in its own window and browser
+      profile on Fedora GNOME. It is not affiliated with Apple. Picture and sound
+      match the Linux web player, not the Windows or macOS Apple TV apps.
+    </p>
+  </description>
+  <launchable type="desktop-id">xyz.xaminezh.TvWeb.desktop</launchable>
+  <url type="homepage">https://github.com/XaMiNeZH/apple-tv-linux</url>
+  <url type="bugtracker">https://github.com/XaMiNeZH/apple-tv-linux/issues</url>
+  <provides>
+    <binary>tvweb</binary>
+  </provides>
+  <recommends>
+    <control>keyboard</control>
+    <control>pointing</control>
+  </recommends>
+  <content_rating type="oars-1.1"/>
+</component>
