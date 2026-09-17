@@ -49,6 +49,7 @@ jobs:
           script: |
             const fs = require('fs');
             const path = require('path');
+            const delay = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
             const owner = context.repo.owner;
             const repo = context.repo.repo;
             const tag = process.env.RELEASE_TAG;
@@ -118,27 +119,42 @@ jobs:
 
             for (const artifactName of artifactNames) {
               const duplicate = existingAssets.find((asset) => asset.name === artifactName);
+              if (duplicate?.state === 'uploaded' && duplicate.size > 0) {
+                core.info(`Keeping existing ${artifactName} (${duplicate.size} bytes)`);
+                continue;
+              }
+
               if (duplicate) {
                 await github.rest.repos.deleteReleaseAsset({
                   owner,
                   repo,
                   asset_id: duplicate.id,
                 });
+                await delay(5000);
               }
 
               const artifactPath = path.join('dist', artifactName);
               const data = fs.readFileSync(artifactPath);
-              await github.rest.repos.uploadReleaseAsset({
-                owner,
-                repo,
-                release_id: release.id,
-                name: artifactName,
-                headers: {
-                  'content-type': 'application/octet-stream',
-                  'content-length': data.length,
-                },
-                data,
-              });
+              for (let attempt = 1; attempt <= 3; attempt += 1) {
+                try {
+                  await github.rest.repos.uploadReleaseAsset({
+                    owner,
+                    repo,
+                    release_id: release.id,
+                    name: artifactName,
+                    headers: {
+                      'content-type': 'application/octet-stream',
+                      'content-length': data.length,
+                    },
+                    data,
+                  });
+                  break;
+                } catch (error) {
+                  if (attempt === 3) throw error;
+                  core.warning(`Upload attempt ${attempt} failed for ${artifactName}: ${error.message}`);
+                  await delay(attempt * 10000);
+                }
+              }
             }
 
             const published = await github.rest.repos.updateRelease({
