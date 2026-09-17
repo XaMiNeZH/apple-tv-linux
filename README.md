@@ -24,8 +24,14 @@ Windows or macOS apps.
 
 ## Install on Fedora
 
-Needs **Node.js 20+**. Chrome or Edge on the machine still helps protected
-playback (Widevine).
+Download a Linux build from [Releases](https://github.com/XaMiNeZH/apple-tv-linux/releases):
+
+```bash
+chmod +x tvweb-0.2.0-x64.AppImage
+./tvweb-0.2.0-x64.AppImage
+```
+
+Or build from source (needs **Node.js 20+**). Chrome or Edge on the machine still helps protected playback (Widevine).
 
 ```bash
 sudo dnf install nodejs git gtk4 libadwaita python3-gobject

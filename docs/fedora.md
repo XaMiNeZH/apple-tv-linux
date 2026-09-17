@@ -20,6 +20,18 @@ sudo dnf install google-chrome-stable
 
 ## 2. Install the app
 
+### From Releases (recommended)
+
+Download the latest **AppImage** or **.tar.gz** from
+[Releases](https://github.com/XaMiNeZH/apple-tv-linux/releases).
+
+```bash
+chmod +x tvweb-*-x64.AppImage
+./tvweb-*-x64.AppImage
+```
+
+### From source
+
 ```bash
 git clone https://github.com/XaMiNeZH/apple-tv-linux.git
 cd apple-tv-linux
