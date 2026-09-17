@@ -1,22 +1,16 @@
 # Install TV Web on Fedora Workstation
 
-TV Web is a GNOME launcher around [tv.apple.com](https://tv.apple.com). Install a
-browser that can actually play that site, then install the launcher.
+TV Web is a GNOME desktop app. It hosts [tv.apple.com](https://tv.apple.com) in
+its own window (Electron/Chromium), not by launching your browser.
 
-## 1. Browser (Widevine)
-
-Firefox is enough for playback. Chrome or Edge give a cleaner app window.
-
-### Firefox (default on Fedora)
+## 1. Tools
 
 ```bash
-sudo dnf install firefox
+sudo dnf install git nodejs gtk4 libadwaita python3-gobject
 ```
 
-Open Firefox once, visit a site that uses protected video if prompted, and allow
-the Widevine plugin.
-
-### Google Chrome (recommended window)
+Install **Google Chrome** or **Microsoft Edge** as well. Apple’s website uses
+Widevine; those browsers ship the CDM that Linux Chromium apps rely on.
 
 ```bash
 sudo dnf install fedora-workstation-repositories
@@ -24,65 +18,36 @@ sudo dnf config-manager setopt google-chrome.enabled=1
 sudo dnf install google-chrome-stable
 ```
 
-On older Fedora, the enable step is:
+## 2. Install the app
 
 ```bash
-sudo dnf config-manager --set-enabled google-chrome
+git clone https://github.com/XaMiNeZH/apple-tv-linux.git
+cd apple-tv-linux
+chmod +x scripts/install-fedora.sh
+./scripts/install-fedora.sh
 ```
 
-### Microsoft Edge (optional)
+That builds TV Web and puts it in `~/.local/lib/tvweb`, with a launcher in
+`~/.local/bin` and a GNOME desktop entry.
 
-Install Edge from Microsoft’s Fedora repo if you already use it. TV Web will
-detect `microsoft-edge-stable`.
+`$HOME/.local/bin` must be on your `PATH`. Then open **TV Web** from the app
+grid.
 
-Do not rely on Fedora **Chromium** for Apple TV on the web. It is often built
-without Widevine.
-
-## 2. Build dependencies
+## 3. Run from git
 
 ```bash
-sudo dnf install python3-gobject gtk4 libadwaita meson ninja-build
+npm install
+npm start
 ```
-
-## 3. Install for your user
-
-From the repository root:
-
-```bash
-meson setup build --prefix="$HOME/.local"
-meson install -C build
-gtk-update-icon-cache "$HOME/.local/share/icons/hicolor" >/dev/null 2>&1 || true
-update-desktop-database "$HOME/.local/share/applications" >/dev/null 2>&1 || true
-```
-
-`$HOME/.local/bin` must be on your `PATH` (Fedora Workstation usually does this
-after a session restart).
-
-## 4. First run
-
-Open **TV Web** from the app grid, or:
-
-```bash
-tvweb --preferences
-```
-
-Pick Chrome/Edge if installed, leave hardware decoding on unless video is blank,
-then click **Open**. Later launches go straight to the site.
 
 ## Data
 
 | Path | Purpose |
 | --- | --- |
-| `~/.config/tvweb/config.json` | Browser choice and flags |
-| `~/.local/share/tvweb/profiles/` | Dedicated browser profile (keeps you signed in) |
-
-## Wayland and VAAPI
-
-Chrome/Edge are started with `--ozone-platform-hint=auto`. Hardware decoding
-adds VAAPI feature flags. If the picture is a black frame, open preferences and
-turn hardware decoding off.
+| `~/.config/TV Web/` | Electron profile (keeps you signed in) |
+| `~/.config/tvweb/config.json` | Fallback browser launcher settings |
 
 ## Quality
 
-This is the website, not Apple’s Windows/macOS apps. Resolution and audio follow
-whatever Apple sends to Linux browsers for your Apple account region.
+This is still Apple’s website inside a desktop shell. Resolution and audio
+follow whatever Apple sends to Linux browsers for your account region.

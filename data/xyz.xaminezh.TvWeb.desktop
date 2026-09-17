@@ -2,7 +2,7 @@
 Type=Application
 Name=TV Web
 GenericName=Apple TV website
-Comment=Unofficial desktop wrapper for tv.apple.com
+Comment=Unofficial desktop app for tv.apple.com
 Exec=tvweb
 Icon=xyz.xaminezh.TvWeb
 Terminal=false
