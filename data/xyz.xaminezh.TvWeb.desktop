@@ -1,17 +1,13 @@
 [Desktop Entry]
 Type=Application
 Name=TV Web
-GenericName=Apple TV website
-Comment=Unofficial desktop app for tv.apple.com
+GenericName=Apple TV web client
+Comment=Watch tv.apple.com in a dedicated window
 Exec=tvweb
 Icon=xyz.xaminezh.TvWeb
 Terminal=false
 Categories=AudioVideo;Video;TV;Player;
-Keywords=Apple;TV;streaming;tv.apple.com;
+Keywords=Apple;TV;streaming;movies;shows;tv.apple.com;
 StartupWMClass=xyz.xaminezh.TvWeb
+StartupNotify=true
 DBusActivatable=false
-Actions=preferences;
-
-[Desktop Action preferences]
-Name=Preferences
-Exec=tvweb --preferences
