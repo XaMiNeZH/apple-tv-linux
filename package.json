@@ -40,10 +40,15 @@
       "artifactName": "tvweb-${version}-${arch}.${ext}",
       "icon": "data/icons/hicolor/scalable/apps/xyz.xaminezh.TvWeb.svg",
       "desktop": {
-        "Name": "TV Web",
-        "Comment": "Unofficial desktop app for tv.apple.com",
-        "Categories": "AudioVideo;Video;TV;Player;",
-        "StartupWMClass": "xyz.xaminezh.TvWeb"
+        "entry": {
+          "Name": "TV Web",
+          "GenericName": "Apple TV web client",
+          "Comment": "Watch tv.apple.com in a dedicated window",
+          "Categories": "AudioVideo;Video;TV;Player;",
+          "Keywords": "Apple;TV;streaming;movies;shows;tv.apple.com;",
+          "StartupWMClass": "xyz.xaminezh.TvWeb",
+          "StartupNotify": "true"
+        }
       }
     },
     "rpm": {
