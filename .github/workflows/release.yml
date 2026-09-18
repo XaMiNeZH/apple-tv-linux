@@ -83,7 +83,7 @@ jobs:
       - name: Linux packaging tools
         run: |
           sudo apt-get update
-          sudo apt-get install -y libfuse2 p7zip-full rpm
+          sudo apt-get install -y p7zip-full rpm
       - name: Install dependencies
         run: npm install
       - name: Build Linux packages
