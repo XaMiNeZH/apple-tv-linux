@@ -6,6 +6,7 @@
   "private": true,
   "type": "module",
   "main": "app/main.mjs",
+  "desktopName": "xyz.xaminezh.TvWeb.desktop",
   "scripts": {
     "start": "electron .",
     "test:electron": "node --test tests/*.test.mjs",
@@ -15,7 +16,10 @@
   "engines": {
     "node": ">=20"
   },
-  "author": "Ahmed Amine EZ-ZAHERY",
+  "author": {
+    "name": "Ahmed Amine EZ-ZAHERY",
+    "email": "83660369+XaMiNeZH@users.noreply.github.com"
+  },
   "license": "MIT",
   "devDependencies": {
     "electron": "44.4.2",
@@ -37,6 +41,7 @@
       "target": ["AppImage", "rpm", "tar.gz"],
       "category": "AudioVideo",
       "executableName": "tvweb",
+      "syncDesktopName": true,
       "artifactName": "tvweb-${version}-${arch}.${ext}",
       "icon": "data/icons/hicolor/scalable/apps/xyz.xaminezh.TvWeb.svg",
       "desktop": {
