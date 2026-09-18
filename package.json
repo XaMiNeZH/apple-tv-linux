@@ -1,7 +1,7 @@
 {
   "name": "tvweb",
   "productName": "TV Web",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Unofficial Fedora GNOME desktop app for tv.apple.com",
   "private": true,
   "type": "module",

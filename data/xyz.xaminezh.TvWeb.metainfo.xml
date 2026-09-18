@@ -42,6 +42,11 @@
     <control>pointing</control>
   </recommends>
   <releases>
+    <release version="0.3.1" date="2026-09-18">
+      <description>
+        <p>Fix the first-run buttons under Electron’s sandbox.</p>
+      </description>
+    </release>
     <release version="0.3.0" date="2026-09-18">
       <description>
         <ul>

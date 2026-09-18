@@ -1,6 +1,6 @@
 """Unofficial Fedora GNOME desktop wrapper for tv.apple.com."""
 
-__version__ = "0.3.0"
+__version__ = "0.3.1"
 
 APP_ID = "xyz.xaminezh.TvWeb"
 APP_NAME = "TV Web"
