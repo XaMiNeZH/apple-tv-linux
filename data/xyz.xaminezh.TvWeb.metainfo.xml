@@ -41,5 +41,16 @@
     <control>keyboard</control>
     <control>pointing</control>
   </recommends>
+  <releases>
+    <release version="0.3.0" date="2026-09-18">
+      <description>
+        <ul>
+          <li>Add a clear first-run guide and remembered window size.</li>
+          <li>Add Fedora RPM and ARM64 release downloads.</li>
+          <li>Improve navigation safety, shortcuts, tests, and documentation.</li>
+        </ul>
+      </description>
+    </release>
+  </releases>
   <content_rating type="oars-1.1"/>
 </component>
