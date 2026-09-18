@@ -1,4 +1,6 @@
-import { contextBridge, ipcRenderer } from "electron";
+// Sandboxed Electron preloads run as classic scripts, even with an .mjs suffix.
+// Electron provides this restricted require function inside the preload sandbox.
+const { contextBridge, ipcRenderer } = require("electron");
 
 contextBridge.exposeInMainWorld("tvweb", {
   appName: "TV Web",
