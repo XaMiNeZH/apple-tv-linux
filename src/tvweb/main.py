@@ -21,7 +21,12 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
         "--preferences",
         "-p",
         action="store_true",
-        help="Open first-run / preferences instead of launching",
+        help="Open the browser fallback preferences",
+    )
+    parser.add_argument(
+        "--fallback",
+        action="store_true",
+        help="Use the external browser fallback instead of Electron",
     )
     return parser.parse_args(argv)
 
@@ -62,7 +67,7 @@ def _launch_electron() -> int | None:
 
 def main(argv: list[str] | None = None) -> int:
     args = parse_args(argv)
-    if not args.preferences:
+    if not args.preferences and not args.fallback:
         launched = _launch_electron()
         if launched is not None:
             return launched
