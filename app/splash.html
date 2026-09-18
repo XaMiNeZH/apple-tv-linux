@@ -2,9 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; style-src 'unsafe-inline'"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>TV Web</title>
     <style>
+      :root {
+        color-scheme: dark;
+      }
       html,
       body {
         margin: 0;
@@ -47,6 +54,12 @@
           transform: rotate(360deg);
         }
       }
+      @media (prefers-reduced-motion: reduce) {
+        .spin {
+          animation: none;
+          border-color: #3584e4;
+        }
+      }
     </style>
   </head>
   <body>
@@ -60,7 +73,7 @@
         <rect x="36" y="102" width="56" height="8" rx="4" fill="#99c1f1" />
       </svg>
       <h1>TV Web</h1>
-      <p>Opening Apple TV</p>
+      <p role="status">Opening Apple TV…</p>
       <div class="spin" aria-hidden="true"></div>
     </div>
   </body>

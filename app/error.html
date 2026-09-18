@@ -2,9 +2,16 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; style-src 'unsafe-inline'; script-src 'self'"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>TV Web</title>
+    <title>TV Web is offline</title>
     <style>
+      :root {
+        color-scheme: dark;
+      }
       html,
       body {
         margin: 0;
@@ -34,6 +41,18 @@
         line-height: 1.45;
         color: #c0bfbc;
       }
+      details {
+        max-width: 36rem;
+        color: #9a9996;
+        font-size: 0.85rem;
+      }
+      summary {
+        cursor: pointer;
+      }
+      #detail {
+        margin-top: 0.5rem;
+        overflow-wrap: anywhere;
+      }
       button {
         margin-top: 0.75rem;
         background: #3584e4;
@@ -49,21 +68,13 @@
   <body>
     <div class="wrap">
       <h1>Could not open Apple TV</h1>
-      <p id="detail">
-        Check your network, then try again. TV Web needs a connection to
-        tv.apple.com.
-      </p>
+      <p>Check your network, then try again.</p>
+      <details>
+        <summary>Technical details</summary>
+        <p id="detail">No connection to tv.apple.com.</p>
+      </details>
       <button id="retry" type="button">Try again</button>
     </div>
-    <script>
-      const params = new URLSearchParams(location.search);
-      const detail = params.get("detail");
-      if (detail) {
-        document.getElementById("detail").textContent = detail;
-      }
-      document.getElementById("retry").addEventListener("click", () => {
-        location.replace("https://tv.apple.com");
-      });
-    </script>
+    <script type="module" src="./error.mjs"></script>
   </body>
 </html>
