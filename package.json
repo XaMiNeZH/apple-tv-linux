@@ -10,7 +10,7 @@
     "start": "electron .",
     "test:electron": "node --test tests/*.test.mjs",
     "pack": "electron-builder --linux dir",
-    "dist": "electron-builder --linux AppImage tar.gz"
+    "dist": "electron-builder --linux AppImage rpm tar.gz"
   },
   "engines": {
     "node": ">=20"
@@ -34,7 +34,7 @@
       "package.json"
     ],
     "linux": {
-      "target": ["AppImage", "tar.gz"],
+      "target": ["AppImage", "rpm", "tar.gz"],
       "category": "AudioVideo",
       "executableName": "tvweb",
       "artifactName": "tvweb-${version}-${arch}.${ext}",
@@ -45,6 +45,9 @@
         "Categories": "AudioVideo;Video;TV;Player;",
         "StartupWMClass": "xyz.xaminezh.TvWeb"
       }
+    },
+    "rpm": {
+      "vendor": "Ahmed Amine EZ-ZAHERY"
     }
   }
 }
